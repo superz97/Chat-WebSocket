@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: chat-application
+
+  data:
+    mongodb:
+      uri: mongodb://admin:admin123@localhost:27017/chatdb?authSource=admin
+      database: chatdb
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/chat-realm
+          jwk-set-uri: http://localhost:8080/realms/chat-realm/protocol/openid-connect/certs
+
+server:
+  port: 8081
+
+keycloak:
+  realm: chat-realm
+  auth-server-url: http://localhost:8080
+  ssl-required: none
+  resource: chat-client
+  credentials:
+    secret: your-client-secret-here
+  use-resource-role-mappings: true
+  bearer-only: true
+
+chat:
+  file-upload:
+    directory: ./uploads
+    max-size: 52428800
+  websocket:
+    allowed-origins: http://localhost:3000,http://localhost:4200
+
+logging:
+  level:
+    root: info
+    com.github.superz97.chat: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web.socket: DEBUG

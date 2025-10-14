@@ -1,0 +1,40 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: chat-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: chatdb
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - chat-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: chat-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_DB: dev-file
+    ports:
+      - "8080:8080"
+    command:
+      - start-dev
+    networks:
+      - chat-network
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
+volumes:
+  mongodb_data:
+    driver: local
+  keycloak_data:
+    driver: local
+
+networks:
+  chat-network:
+    driver: bridge
