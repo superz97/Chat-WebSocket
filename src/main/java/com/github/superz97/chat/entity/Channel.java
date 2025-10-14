@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "channels")
-public class Channel {
+public class    Channel {
 
     @Id
     private String id;
