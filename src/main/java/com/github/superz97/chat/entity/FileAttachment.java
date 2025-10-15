@@ -1,5 +1,6 @@
 package com.github.superz97.chat.entity;
 
+import com.github.superz97.chat.enums.FileType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,14 +46,6 @@ public class FileAttachment {
 
     @Builder.Default
     private FileType fileType = FileType.OTHER;
-
-    public enum FileType {
-        IMAGE,
-        VIDEO,
-        AUDIO,
-        DOCUMENT,
-        OTHER
-    }
 
     public static FileType determineFileType(String contentType) {
         if (contentType == null) return FileType.OTHER;
