@@ -24,6 +24,9 @@ public class User {
     private String id;
 
     @Indexed(unique = true)
+    private String keycloakId;
+
+    @Indexed(unique = true)
     private String username;
 
     private String email;
@@ -33,7 +36,7 @@ public class User {
     private String bio;
 
     @Builder.Default
-    private UserStatus status;
+    private UserStatus status = UserStatus.OFFLINE;
 
     private LocalDateTime lastSeen;
     private LocalDateTime createdAt;
